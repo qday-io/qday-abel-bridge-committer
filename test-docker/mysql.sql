@@ -17,7 +17,7 @@ CREATE TABLE `rollbacks` (
   `event_id` bigint NOT NULL COMMENT ' 事件ID',
   PRIMARY KEY (`id`),
   KEY `event_id_index` (`event_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Table structure for sync_blocks
@@ -41,7 +41,7 @@ CREATE TABLE `sync_blocks` (
   KEY `status_index` (`status`),
   KEY `tx_count_index` (`tx_count`),
   KEY `check_count_index` (`check_count`)
-) ENGINE=InnoDB AUTO_INCREMENT=2923365 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2923365 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Table structure for sync_blocks_history
@@ -62,7 +62,7 @@ CREATE TABLE `sync_blocks_history` (
   `status` varchar(32) NOT NULL COMMENT ' 状态',
   `check_count` bigint NOT NULL COMMENT ' 检查次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2792531 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2792531 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Table structure for sync_events
@@ -88,7 +88,7 @@ CREATE TABLE `sync_events` (
   `retry_count` bigint DEFAULT '0' COMMENT '重试次数',
   PRIMARY KEY (`id`),
   KEY `status_index` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=1011299 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1011299 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Table structure for sync_events_history
@@ -112,7 +112,7 @@ CREATE TABLE `sync_events_history` (
   `data` json NOT NULL COMMENT ' 数据内容',
   `status` varchar(32) NOT NULL COMMENT ' 状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Table structure for sync_tasks
@@ -131,7 +131,7 @@ CREATE TABLE `sync_tasks` (
   `status` varchar(32) NOT NULL COMMENT ' 状态',
   PRIMARY KEY (`id`),
   KEY `status_index` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000010 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1000010 DEFAULT CHARSET=utf8mb4 ;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
