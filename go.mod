@@ -20,6 +20,7 @@ require (
 	google.golang.org/grpc v1.60.1
 	gorm.io/driver/mysql v1.5.2
 	gorm.io/gorm v1.25.5
+	abelian.info/sdk/core v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -187,5 +188,5 @@ replace (
 	github.com/evmos/ethermint => github.com/b2network/b2-node v0.0.0-20240204125823-c364bff9b6f1
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
-
+	abelian.info/sdk/core => github.com/pqabelian/abelian-sdk-go v0.0.0-20240505051539-2230e264d8d8
 )

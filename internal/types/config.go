@@ -39,10 +39,17 @@ type BitcoinRPCConfig struct {
 	DestinationAddress string `env:"COMMITTER_DESTINATION_ADDRESS" envDefault:"bc1peuj9pfr4leqnfmem4nrsxl2cqcz2hafw7k6luxzrxcr545fywm3qrsfvtj"`
 }
 
+type AbecConfig struct {
+	Endpoint string `env:"ABEC_ENDPOINT" envDefault:"https://testnet-rpc-exchange.abelian.info"`
+	Username string `env:"ABEC_USERNAME" envDefault:"KFf5krbZiLyfo5KaIsNb3Fr2QZs="`
+	Password string `env:"ABEC_PASSWORD" envDefault:"M+DxFwon2FYyiLgaJoTZ9qCr6Jc="`
+}
+
 var (
 	config       *Config
 	btcRPCConfig *BitcoinRPCConfig
 	b2nodeConfig *B2NODEConfig
+	abecCfg      *AbecConfig
 )
 
 func GetConfig() *Config {
@@ -79,4 +86,16 @@ func GetB2nodeConfig() *B2NODEConfig {
 		b2nodeConfig = cfg
 	}
 	return b2nodeConfig
+}
+
+func GetAbecConfig() *AbecConfig {
+	if abecCfg == nil {
+		cfg := &AbecConfig{}
+		if err := env.Parse(cfg); err != nil {
+			log.Panicf("parse abec config err: %s\n", err)
+			return nil
+		}
+		abecCfg = cfg
+	}
+	return abecCfg
 }

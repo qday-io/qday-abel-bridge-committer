@@ -3,6 +3,7 @@ package svc
 import (
 	"time"
 
+	"github.com/b2network/b2committer/pkg/abec"
 	"github.com/b2network/b2committer/pkg/b2node"
 
 	"github.com/b2network/b2committer/pkg/log"
@@ -27,10 +28,11 @@ type ServiceContext struct {
 	SyncedBlockNumber    int64
 	SyncedBlockHash      common.Hash
 	NodeClient           *b2node.NodeClient
+	AbecClient           *abec.AbecClient
 	LatestBTCBlockNumber int64
 }
 
-func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2nodeConfig *types.B2NODEConfig) *ServiceContext {
+func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2nodeConfig *types.B2NODEConfig, abecCfg *types.AbecConfig) *ServiceContext {
 	storage, err := gorm.Open(mysql.Open(cfg.MySQLDataSource), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
@@ -62,7 +64,7 @@ func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2
 		log.Panicf("[svc] init b2node grpc panic: %s\n", err)
 	}
 	nodeClient := b2node.NewNodeClient(privateKeHex, chainID, address, grpcConn, b2nodeConfig.RPCUrl, b2nodeConfig.CoinDenom)
-
+	abecClient := abec.NewClient(abecCfg.Endpoint, abecCfg.Username, abecCfg.Password)
 	svc = &ServiceContext{
 		BTCConfig:         bitcoinCfg,
 		DB:                storage,
@@ -71,6 +73,7 @@ func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2
 		LatestBlockNumber: cfg.InitBlockNumber,
 		B2NodeConfig:      b2nodeConfig,
 		NodeClient:        nodeClient,
+		AbecClient:        abecClient,
 	}
 	return svc
 }
