@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/b2network/b2committer/internal/types"
-	"github.com/tarm/serial/crc16"
 )
 
 const (
@@ -129,15 +128,15 @@ func GenerateMemoData(from, stateRootHash, proofRootHash string) ([]byte, error)
 		return nil, err
 	}
 
-	crc := crc16.ChecksumCCITTFalse(jsonBytes)
+	//crc := crc16.ChecksumCCITTFalse(jsonBytes)
 
 	var memoBytes []byte
 	memoBytes = append(memoBytes, 0x00)                                               // 第1字节固定为0x00
 	memoBytes = append(memoBytes, PROTOCOLVERSION)                                    // 第2字节为协议版本，暂定0x10
 	memoBytes = append(memoBytes, byte(len(jsonBytes)>>8), byte(len(jsonBytes)&0xFF)) // 第3-4字节为长度
-	memoBytes = append(memoBytes, byte(crc>>8), byte(crc&0xFF))                       // 第5-6字节为CRC16校验码
-	memoBytes = append(memoBytes, byte(RESERVEDFIELD>>8), byte(RESERVEDFIELD&0xFF))   // 第7-8字节预留字段
-	memoBytes = append(memoBytes, jsonBytes...)                                       // memo数据
+	//memoBytes = append(memoBytes, byte(crc>>8), byte(crc&0xFF))                       // 第5-6字节为CRC16校验码
+	memoBytes = append(memoBytes, byte(RESERVEDFIELD>>8), byte(RESERVEDFIELD&0xFF)) // 第7-8字节预留字段
+	memoBytes = append(memoBytes, jsonBytes...)                                     // memo数据
 
 	return memoBytes, nil
 }
