@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/b2network/b2committer/pkg/btcapi"
@@ -40,26 +39,25 @@ func Inscribe(ctx *svc.ServiceContext) {
 		}
 		if proposal.Status == schema.PendingStatus &&
 			proposal.Winner == ctx.B2NodeConfig.Address && proposal.BitcoinTxHash == "" {
-			rs, err := inscribe.Inscribe(ctx.BTCConfig.PrivateKey, proposal.StateRootHash, proposal.ProofHash, ctx.BTCConfig.DestinationAddress, btcapi.ChainParams(ctx.BTCConfig.NetworkName))
+			memo, err := inscribe.GenerateMemoData(ctx.AbecConfig.From, proposal.StateRootHash, proposal.ProofHash)
 			if err != nil {
-				log.Errorf("[Handler.Inscribe] Inscribe err: %s\n", errors.WithStack(err).Error())
+				log.Errorf("[Handler.Inscribe] GenerateMemoData err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
-			str, err := json.Marshal(rs)
-			if err != nil {
-				log.Errorf("[Handler.Inscribe] Marshal result err: %s\n", errors.WithStack(err).Error())
-				continue
-			}
-			log.Infof("[Handler.Inscribe] inscribe result: %s", str)
-			bitcoinTxHash := rs.RevealTxHashList[0].String()
 
-			_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Winner, bitcoinTxHash)
+			abecTxHash, err := inscribe.InscribeToTxMemo(ctx.AbecConfig, memo)
+			if err != nil {
+				log.Errorf("[Handler.Inscribe] InscribeToTxMemo err: %s\n", errors.WithStack(err).Error())
+				continue
+			}
+
+			_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Winner, abecTxHash)
 			if err != nil {
 				log.Errorf("[Handler.Inscribe] BitcoinTx err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
-			dbProposal.BtcRevealTxHash = bitcoinTxHash
-			dbProposal.BtcCommitTxHash = rs.CommitTxHash.String()
+
+			dbProposal.BtcRevealTxHash = abecTxHash
 
 			ctx.DB.Save(dbProposal)
 		}

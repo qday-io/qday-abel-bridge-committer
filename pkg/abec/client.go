@@ -1,9 +1,7 @@
 package abec
 
 import (
-	core "abelian.info/sdk/core"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/pqabelian/abec/chainhash"
+	core "github.com/pqabelian/abelian-sdk-go"
 )
 
 type AbecClient struct {
@@ -18,9 +16,10 @@ func NewClient(endpoint, username, password string) *AbecClient {
 }
 
 func (c *AbecClient) GetBestBlockHeight() (int64, error) {
-	return c.innerClient.GetBestBlock().height
-}
+	_, chainInfo, err := c.innerClient.GetChainInfo()
+	if err != nil {
+		return 0, err
+	}
 
-func (c *AbecClient) SendRawTx(tx *wire.MsgTx) (*chainhash.Hash, error) {
-	return c.innerClient.SendRawTx(tx)
+	return chainInfo.NumBlocks, nil
 }
