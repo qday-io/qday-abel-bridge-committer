@@ -16,10 +16,10 @@ type Config struct {
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
 	RPCUrl               string `env:"RPC_URL" envDefault:"http://159.138.106.168:8545"`
 	Blockchain           string `env:"BLOCKCHAIN" envDefault:"b2-node"`
-	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"396"`
-	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x169272fb8bc00c3e495dd976526480fd36f44f29ecc6fd02dc484eacb6ad6117"`
+	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"300"`
+	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x0c4408fab90dae9ee884f255ba647aabd387182809f43aa416fd2d255b0f7c4f"`
 	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0xBEfc6B93f8987758231f2381B562996deeE963F9"`
-	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"10"`
+	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"2"`
 	InitProposalID       uint64 `evn:"INIT_PROPOSAL_ID" envDefault:"1"`
 }
 
@@ -41,8 +41,8 @@ type BitcoinRPCConfig struct {
 
 type AbecConfig struct {
 	Endpoint         string `env:"ENDPOINT" envDefault:"https://testnet-snode.abelian.info/v1/single-account"`
-	Username         string `env:"USERNAME" envDefault:"KFf5krbZiLyfo5KaIsNb3Fr2QZs="`
-	Password         string `env:"PASSWORD" envDefault:"M+DxFwon2FYyiLgaJoTZ9qCr6Jc="`
+	Username         string `env:"USERNAME" envDefault:"J8y0OnkS2wx9XEgUlW5MqtoRDAQ="`
+	Password         string `env:"PASSWORD" envDefault:"ULlXc/ZMJ375cn6VuSbtU+Y3KGQ="`
 	APPID            string `env:"APPID" envDefault:"8b9ca2d7"`
 	RequestSignature string `env:"REQUEST_SIGNATURE" envDefault:"randstring"`
 	UserID           string `env:"USERID" envDefault:"abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"`

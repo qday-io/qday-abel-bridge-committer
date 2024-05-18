@@ -106,7 +106,7 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 		return nil, err
 	}
 
-	url := b.endpoint
+	url := "https://testnet-rpc-00.abelian.info"
 
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
 	if err != nil {
