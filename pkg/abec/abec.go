@@ -8,13 +8,15 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/b2network/b2committer/internal/types"
 	"github.com/tidwall/gjson"
 )
 
 type AbecClient struct {
-	endpoint string
-	username string
-	password string
+	endpoint  string
+	username  string
+	password  string
+	authToken string
 }
 
 func (b *AbecClient) GetBestBlockHeight() (int64, error) {
@@ -57,11 +59,35 @@ func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature 
 	return false, -1, nil
 }
 
-func NewClient(endpoint string, username string, password string) *AbecClient {
+func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, memo []byte) (string, error) {
+	params := map[string]interface{}{
+		"appID":            abeCfg.APPID,
+		"requestSignature": abeCfg.RequestSignature,
+		"userID":           abeCfg.UserID,
+		"recipient":        abeCfg.Recipient,
+		"amount":           "100000",
+		"privateKey":       abeCfg.PrivateKey,
+		"memo":             memo,
+	}
+
+	resp, err := b.getResponseFromChan("abelsn_userTransferToSingleRecipient", params)
+	if err != nil {
+		return "", err
+	}
+
+	var res UserTransferToSingleRecipientResult
+	if err := json.Unmarshal(resp, &res); err != nil {
+		return "", err
+	}
+	return res.TxHash, nil
+}
+
+func NewClient(endpoint, username, password, authToken string) *AbecClient {
 	return &AbecClient{
-		endpoint: endpoint,
-		username: username,
-		password: password,
+		endpoint:  endpoint,
+		username:  username,
+		password:  password,
+		authToken: authToken,
 	}
 }
 
@@ -90,7 +116,6 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 		return nil, err
 	}
 
-	//url := "https://testnet-rpc-00.abelian.info"
 	url := b.endpoint
 
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
@@ -103,9 +128,41 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 	return httpReq, nil
 }
 
+func (b *AbecClient) newRequestAuth2(id string, method string, params map[string]interface{}) (*http.Request, error) {
+	jsonReq := &AbecJSONRPCRequest{
+		JSONRPC: "1.0",
+		Method:  method,
+		Params:  params,
+		ID:      id,
+	}
+	jsonBody, err := json.Marshal(jsonReq)
+	if err != nil {
+		return nil, err
+	}
+
+	url := b.endpoint
+
+	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return nil, err
+	}
+	httpReq.Header.Set("Content-Type", "application/json")
+	httpReq.Header.Set("Authorization", "Token "+b.authToken)
+
+	return httpReq, nil
+}
+
 func (b *AbecClient) getResponseFromChan(method string, params map[string]interface{}) ([]byte, error) {
 	id := fmt.Sprintf("%d", time.Now().UnixNano())
-	req, err := b.newRequest(id, method, params)
+	var req *http.Request
+	var err error
+
+	if method == "getinfo" {
+		req, err = b.newRequest(id, method, params)
+	} else {
+		req, err = b.newRequestAuth2(id, method, params)
+	}
+
 	if err != nil {
 		return nil, err
 	}
@@ -156,4 +213,10 @@ type AbelianChainInfo struct {
 
 type TransactionViewResult struct {
 	BlockHeight int64 `json:"blockHeight"`
+}
+
+type UserTransferToSingleRecipientResult struct {
+	Timestamp             int64       `json:"timestamp"`
+	TxHash                string      `json:"txHash"`
+	SignedTransactionData interface{} `json:"signedTransactionData"`
 }

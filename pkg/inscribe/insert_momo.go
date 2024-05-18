@@ -1,11 +1,7 @@
 package inscribe
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
 
 	"github.com/b2network/b2committer/internal/types"
 	"github.com/sigurn/crc16"
@@ -57,42 +53,11 @@ type UserTransferToSingleRecipientResponse struct {
 	} `json:"error"`
 }
 
-func InscribeToTxMemo(abeCfg *types.AbecConfig, memo []byte) (string, error) {
-	request := genUserTransferToSingleRecipientReq(abeCfg, memo)
-	payloadBytes, err := json.Marshal(request)
-	if err != nil {
-		return "", fmt.Errorf("Error marshaling JSON: %v", err)
-	}
-
-	resp, err := http.Post(abeCfg.Endpoint, "application/json", bytes.NewBuffer(payloadBytes))
-	if err != nil {
-		return "", fmt.Errorf("Error sending request: %v", err)
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", fmt.Errorf("Error reading response body: %v", err)
-	}
-
-	var rpcResponse UserTransferToSingleRecipientResponse
-	err = json.Unmarshal(body, &rpcResponse)
-	if err != nil {
-		return "", fmt.Errorf("Error unmarshaling response: %v", err)
-	}
-
-	if rpcResponse.Error != nil {
-		return "", fmt.Errorf("RPC Error: code=%d message=%s", rpcResponse.Error.Code, rpcResponse.Error.Message)
-	}
-
-	return rpcResponse.Result.TxHash, nil
-}
-
 func genUserTransferToSingleRecipientReq(abeCfg *types.AbecConfig, memo []byte) *UserTransferToSingleRecipientRequest {
 	request := &UserTransferToSingleRecipientRequest{
 		JsonRPC: "2.0",
 		ID:      1,
-		Method:  "abelsn_userTransferToMultipleRecipient",
+		Method:  "abelsn_userTransferToSingleRecipient",
 		Params: struct {
 			AppID            string `json:"appID"`
 			RequestSignature string `json:"requestSignature"`

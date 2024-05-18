@@ -14,23 +14,23 @@ type Config struct {
 	MySQLMaxIdleConns    int    `env:"MYSQL_MAX_IDLE_CONNS" envDefault:"10"`
 	MySQLMaxOpenConns    int    `env:"MYSQL_MAX_OPEN_CONNS" envDefault:"20"`
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
-	RPCUrl               string `env:"RPC_URL" envDefault:"http://124.243.137.251:8888"`
+	RPCUrl               string `env:"RPC_URL" envDefault:"http://159.138.106.168:8545"`
 	Blockchain           string `env:"BLOCKCHAIN" envDefault:"b2-node"`
-	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"32332"`
-	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0xb20dc0f9df4e923ac60bb210f0417cf2fce6c3e5441a61944cfc6561b444a96b"`
-	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0x8aCd85898458400f7Db866d53FCFF6f0D49741FF"`
+	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"396"`
+	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x169272fb8bc00c3e495dd976526480fd36f44f29ecc6fd02dc484eacb6ad6117"`
+	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0xBEfc6B93f8987758231f2381B562996deeE963F9"`
 	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"10"`
 	InitProposalID       uint64 `evn:"INIT_PROPOSAL_ID" envDefault:"1"`
 }
 
 type B2NODEConfig struct {
-	Address    string `env:"B2NODE_ADDRESS" envDefault:"ethm10pax3a2aqxc33s3ya85e25us05y7pfmcmkd20p"`
+	Address    string `env:"B2NODE_ADDRESS" envDefault:"ethm1e7s8kwnlcnd5vk8fx0jrfpy5cn5wfmwakc5azp"`
 	ChainID    string `env:"B2NODE_CHAIN_ID" envDefault:"ethermint_9000-1"`
-	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"124.243.137.251"`
-	GRPCPort   uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9199"`
-	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://124.243.137.251:8888"`
+	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"159.138.106.168"`
+	GRPCPort   uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9090"`
+	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://159.138.106.168:9090"`
 	CoinDenom  string `env:"B2NODE_COIN_DENOM" envDefault:"aphoton"`
-	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"C37E6DB22B966D4091B10F86B1ED63F1C3F1372525946DBAF3F31B1A18A567E5"`
+	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"8623eb1173b001788b7dc789513c34d049a3d02c728b50daae5799fca009e111"`
 }
 
 type BitcoinRPCConfig struct {
@@ -40,15 +40,16 @@ type BitcoinRPCConfig struct {
 }
 
 type AbecConfig struct {
-	Endpoint         string `env:"ENDPOINT" envDefault:"https://testnet-rpc-exchange.abelian.info"`
+	Endpoint         string `env:"ENDPOINT" envDefault:"https://testnet-snode.abelian.info/v1/single-account"`
 	Username         string `env:"USERNAME" envDefault:"KFf5krbZiLyfo5KaIsNb3Fr2QZs="`
 	Password         string `env:"PASSWORD" envDefault:"M+DxFwon2FYyiLgaJoTZ9qCr6Jc="`
-	APPID            string `env:"APPID" 	envDefault:"8b9ca2d7"`
+	APPID            string `env:"APPID" envDefault:"8b9ca2d7"`
 	RequestSignature string `env:"REQUEST_SIGNATURE" envDefault:"randstring"`
 	UserID           string `env:"USERID" envDefault:"abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"`
 	From             string `env:"FROM" envDefault:"abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"`
 	Recipient        string `env:"RECIPIENT" envDefault:"abe338491ef250a530f6b1a771d45ae168f81d6a430f20623849e448b870f0f95e13f12ba51bff83497480db944567750e3cf555cd9811db95b848ca93d45c1448d0"`
 	PrivateKey       string `env:"PRIVATE_KEY" envDefault:"0000000064a27b5f97581f0eaeb482d09fb963e0e19f73eb476b6de0d9821967abdc8ea9336bf818d3828d94eb2bfca150fec85dccbbc18c6c6d39a3bd2fbb2a5801c525c42815fe86639ad806246bac5810ea820bdd3ce87d0c1718716019aba621cd3507156e8a72e7a41d81615788392dfd42974ead6a229aeebedf448f091e517d85"`
+	AuthToken        string `env:"AUTHTOKEN" envDefault:"8b9ca2d7f0d4d76e17d02f6f5f82e595"`
 }
 
 var (
