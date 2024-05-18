@@ -29,7 +29,7 @@ func TestAbecClient_GetTxConfirmedStatus(t *testing.T) {
 		password:  "",
 		authToken: "cce71078669ded3517d085ae0b986e7d",
 	}
-	_, r, err := b.GetTxConfirmedStatus("", "cce71078", "abe338ce0ce178fb0aca42b4e400cdf395c92cbf9c5c9abd678aa516835f697bd6d280b285815924f862352c5463421c9f8d247f65dc112aa04c25de925bd1d1a334", "0x338i3jejjd")
+	_, r, err := b.GetTxConfirmedStatus("0xd6dfb90c0bb3c533df36c333cbe36376fe32c04d7c5be7b913b391209206cab0", "cce71078", "abe338ce0ce178fb0aca42b4e400cdf395c92cbf9c5c9abd678aa516835f697bd6d280b285815924f862352c5463421c9f8d247f65dc112aa04c25de925bd1d1a334", "0x338i3jejjd")
 
 	if err != nil {
 		t.Error(err)

@@ -37,13 +37,14 @@ func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature 
 		"appID":            appID,
 		"userID":           userID,
 		"requestSignature": requestSignature,
+		"txid":             txid,
 	}
 
-	resp, err := b.getResponseFromChan("abelsn_userStatus", params)
+	resp, err := b.getResponseFromChan("abelsn_userTransactionView", params)
 	if err != nil {
 		return false, -1, err
 	}
-	height := gjson.ParseBytes(resp).Get("syncedBlockHeight").Int()
+	height := gjson.ParseBytes(resp).Get("tx.blockHeight").Int()
 	return true, height, nil
 }
 
