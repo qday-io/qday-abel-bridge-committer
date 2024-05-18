@@ -2,6 +2,7 @@ package abec
 
 import (
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -56,7 +57,7 @@ func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, mem
 		"recipient":        abeCfg.Recipient,
 		"amount":           "100000",
 		"privateKey":       abeCfg.PrivateKey,
-		"memo":             memo,
+		"memo":             hex.EncodeToString(memo),
 	}
 
 	resp, err := b.getResponseFromChan("abelsn_userTransferToSingleRecipient", params)
