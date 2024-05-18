@@ -34,29 +34,17 @@ func (b *AbecClient) GetBestBlockHeight() (int64, error) {
 
 func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature string) (bool, int64, error) {
 	params := map[string]interface{}{
-		"txid":             txid,
 		"appID":            appID,
 		"userID":           userID,
 		"requestSignature": requestSignature,
 	}
 
-	resp, err := b.getResponseFromChan("getinfo", params)
+	resp, err := b.getResponseFromChan("abelsn_userStatus", params)
 	if err != nil {
 		return false, -1, err
 	}
-
-	var txViewRes TransactionViewResult
-	err = json.Unmarshal(resp, &txViewRes)
-	if err != nil {
-		return false, -1, err
-	}
-
-	if txViewRes.BlockHeight > 0 {
-		// confirmed height != -1
-		return true, txViewRes.BlockHeight, nil
-	}
-
-	return false, -1, nil
+	height := gjson.ParseBytes(resp).Get("syncedBlockHeight").Int()
+	return true, height, nil
 }
 
 func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, memo []byte) (string, error) {
@@ -95,7 +83,7 @@ type AbecJSONRPCRequest struct {
 	JSONRPC string                 `json:"jsonrpc"`
 	Method  string                 `json:"method"`
 	Params  map[string]interface{} `json:"params"`
-	ID      string                 `json:"id"`
+	ID      any                    `json:"id"`
 }
 
 type AbecJSONRPCResponse struct {
@@ -128,9 +116,9 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 	return httpReq, nil
 }
 
-func (b *AbecClient) newRequestAuth2(id string, method string, params map[string]interface{}) (*http.Request, error) {
+func (b *AbecClient) newRequestAuth2(id int64, method string, params map[string]interface{}) (*http.Request, error) {
 	jsonReq := &AbecJSONRPCRequest{
-		JSONRPC: "1.0",
+		JSONRPC: "2.0",
 		Method:  method,
 		Params:  params,
 		ID:      id,
@@ -153,14 +141,14 @@ func (b *AbecClient) newRequestAuth2(id string, method string, params map[string
 }
 
 func (b *AbecClient) getResponseFromChan(method string, params map[string]interface{}) ([]byte, error) {
-	id := fmt.Sprintf("%d", time.Now().UnixNano())
 	var req *http.Request
 	var err error
 
 	if method == "getinfo" {
+		id := fmt.Sprintf("%d", time.Now().UnixNano())
 		req, err = b.newRequest(id, method, params)
 	} else {
-		req, err = b.newRequestAuth2(id, method, params)
+		req, err = b.newRequestAuth2(1, method, params)
 	}
 
 	if err != nil {
