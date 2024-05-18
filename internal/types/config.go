@@ -41,6 +41,7 @@ type BitcoinRPCConfig struct {
 
 type AbecConfig struct {
 	Endpoint         string `env:"ENDPOINT" envDefault:"https://testnet-snode.abelian.info/v1/single-account"`
+	RpcEndpoint      string `env:"RPCENDPOINT" envDefault:"https://testnet-rpc-00.abelian.info"`
 	Username         string `env:"USERNAME" envDefault:"J8y0OnkS2wx9XEgUlW5MqtoRDAQ="`
 	Password         string `env:"PASSWORD" envDefault:"ULlXc/ZMJ375cn6VuSbtU+Y3KGQ="`
 	APPID            string `env:"APPID" envDefault:"8b9ca2d7"`

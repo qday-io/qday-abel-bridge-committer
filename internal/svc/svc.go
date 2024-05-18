@@ -66,7 +66,7 @@ func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2
 	}
 
 	nodeClient := b2node.NewNodeClient(privateKeHex, chainID, address, grpcConn, b2nodeConfig.RPCUrl, b2nodeConfig.CoinDenom)
-	abecClient := abec.NewClient(abecCfg.Endpoint, abecCfg.Username, abecCfg.Password, abecCfg.AuthToken)
+	abecClient := abec.NewClient(abecCfg.Endpoint, abecCfg.Username, abecCfg.Password, abecCfg.AuthToken, abecCfg.RpcEndpoint)
 
 	svc = &ServiceContext{
 		BTCConfig:         bitcoinCfg,

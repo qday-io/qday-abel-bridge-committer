@@ -14,10 +14,11 @@ import (
 )
 
 type AbecClient struct {
-	endpoint  string
-	username  string
-	password  string
-	authToken string
+	endpoint    string
+	username    string
+	password    string
+	authToken   string
+	rpcEndpoint string
 }
 
 func (b *AbecClient) GetBestBlockHeight() (int64, error) {
@@ -72,12 +73,13 @@ func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, mem
 	return res.TxHash, nil
 }
 
-func NewClient(endpoint, username, password, authToken string) *AbecClient {
+func NewClient(endpoint, username, password, authToken, rpcEndpoint string) *AbecClient {
 	return &AbecClient{
-		endpoint:  endpoint,
-		username:  username,
-		password:  password,
-		authToken: authToken,
+		endpoint:    endpoint,
+		username:    username,
+		password:    password,
+		authToken:   authToken,
+		rpcEndpoint: rpcEndpoint,
 	}
 }
 
@@ -106,7 +108,7 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 		return nil, err
 	}
 
-	url := "https://testnet-rpc-00.abelian.info"
+	url := b.rpcEndpoint
 
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
 	if err != nil {
