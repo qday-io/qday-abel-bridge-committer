@@ -10,7 +10,7 @@ type Config struct {
 	LogLevel string `env:"LOG_LEVEL" envDefault:"info"`
 	// "console","json"
 	LogFormat            string `env:"LOG_FORMAT" envDefault:"console"`
-	MySQLDataSource      string `env:"MYSQL_DATA_SOURCE" envDefault:"root:123456@tcp(127.0.0.1:3306)/b2_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"`
+	MySQLDataSource      string `env:"MYSQL_DATA_SOURCE" envDefault:"root:123456789@tcp(190.92.213.101:3306)/abe_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"`
 	MySQLMaxIdleConns    int    `env:"MYSQL_MAX_IDLE_CONNS" envDefault:"10"`
 	MySQLMaxOpenConns    int    `env:"MYSQL_MAX_OPEN_CONNS" envDefault:"20"`
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
