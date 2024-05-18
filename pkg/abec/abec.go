@@ -30,6 +30,33 @@ func (b *AbecClient) GetBestBlockHeight() (int64, error) {
 	return abe.Blocks, nil
 }
 
+func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature string) (bool, int64, error) {
+	params := map[string]interface{}{
+		"txid":             txid,
+		"appID":            appID,
+		"userID":           userID,
+		"requestSignature": requestSignature,
+	}
+
+	resp, err := b.getResponseFromChan("getinfo", params)
+	if err != nil {
+		return false, -1, err
+	}
+
+	var txViewRes TransactionViewResult
+	err = json.Unmarshal(resp, &txViewRes)
+	if err != nil {
+		return false, -1, err
+	}
+
+	if txViewRes.BlockHeight > 0 {
+		// confirmed height != -1
+		return true, txViewRes.BlockHeight, nil
+	}
+
+	return false, -1, nil
+}
+
 func NewClient(endpoint string, username string, password string) *AbecClient {
 	return &AbecClient{
 		endpoint: endpoint,
@@ -39,10 +66,10 @@ func NewClient(endpoint string, username string, password string) *AbecClient {
 }
 
 type AbecJSONRPCRequest struct {
-	JSONRPC string        `json:"jsonrpc"`
-	Method  string        `json:"method"`
-	Params  []interface{} `json:"params"`
-	ID      string        `json:"id"`
+	JSONRPC string                 `json:"jsonrpc"`
+	Method  string                 `json:"method"`
+	Params  map[string]interface{} `json:"params"`
+	ID      string                 `json:"id"`
 }
 
 type AbecJSONRPCResponse struct {
@@ -51,7 +78,7 @@ type AbecJSONRPCResponse struct {
 	ID     string `json:"id"`
 }
 
-func (b *AbecClient) newRequest(id string, method string, params []interface{}) (*http.Request, error) {
+func (b *AbecClient) newRequest(id string, method string, params map[string]interface{}) (*http.Request, error) {
 	jsonReq := &AbecJSONRPCRequest{
 		JSONRPC: "1.0",
 		Method:  method,
@@ -76,7 +103,7 @@ func (b *AbecClient) newRequest(id string, method string, params []interface{}) 
 	return httpReq, nil
 }
 
-func (b *AbecClient) getResponseFromChan(method string, params []interface{}) ([]byte, error) {
+func (b *AbecClient) getResponseFromChan(method string, params map[string]interface{}) ([]byte, error) {
 	id := fmt.Sprintf("%d", time.Now().UnixNano())
 	req, err := b.newRequest(id, method, params)
 	if err != nil {
@@ -125,4 +152,8 @@ type AbelianChainInfo struct {
 	Connections          int64   `json:"connections" gorm:"column:connections"`
 	Errors               string  `json:"errors" gorm:"column:errors"`
 	NetId                int64   `json:"netid" gorm:"column:netid"`
+}
+
+type TransactionViewResult struct {
+	BlockHeight int64 `json:"blockHeight"`
 }
