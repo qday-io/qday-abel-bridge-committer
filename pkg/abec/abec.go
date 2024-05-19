@@ -50,13 +50,13 @@ func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature 
 	return true, height, nil
 }
 
-func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, memo []byte) (string, error) {
+func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, memo []byte, amount string) (string, error) {
 	params := map[string]interface{}{
 		"appID":            abeCfg.APPID,
 		"requestSignature": abeCfg.RequestSignature,
 		"userID":           abeCfg.UserID,
 		"recipient":        abeCfg.Recipient,
-		"amount":           "100000",
+		"amount":           amount,
 		"privateKey":       abeCfg.PrivateKey,
 		"memo":             hex.EncodeToString(memo),
 	}

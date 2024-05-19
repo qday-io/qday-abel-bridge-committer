@@ -42,7 +42,7 @@ func Inscribe(ctx *svc.ServiceContext) {
 				continue
 			}
 
-			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo)
+			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo, "10000")
 			if err != nil {
 				log.Errorf("[Handler.Inscribe] UserTransferToSingleRecipient err: %s\n", errors.WithStack(err).Error())
 				continue
