@@ -1,6 +1,7 @@
 package inscribe
 
 import (
+	"encoding/base64"
 	"encoding/json"
 
 	"github.com/b2network/b2committer/internal/types"
@@ -94,6 +95,8 @@ func GenerateMemoData(from, stateRootHash, proofRootHash string) ([]byte, error)
 		return nil, err
 	}
 
+	base64EncodedMemo := base64.StdEncoding.EncodeToString(jsonBytes)
+
 	table := crc16.MakeTable(crc16.CRC16_XMODEM)
 	crcValue := crc16.Checksum(jsonBytes, table)
 
@@ -103,7 +106,7 @@ func GenerateMemoData(from, stateRootHash, proofRootHash string) ([]byte, error)
 	memoBytes = append(memoBytes, byte(len(jsonBytes)>>8), byte(len(jsonBytes)&0xFF)) // 第3-4字节为长度
 	memoBytes = append(memoBytes, byte(crcValue>>8), byte(crcValue&0xFF))             // 第5-6字节为CRC16校验码
 	memoBytes = append(memoBytes, byte(RESERVEDFIELD>>8), byte(RESERVEDFIELD&0xFF))   // 第7-8字节预留字段
-	memoBytes = append(memoBytes, jsonBytes...)                                       // memo数据
+	memoBytes = append(memoBytes, base64EncodedMemo...)                               // base64编码的memo数据
 
 	return memoBytes, nil
 }
