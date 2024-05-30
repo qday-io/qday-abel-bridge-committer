@@ -1,5 +1,5 @@
-Create Database If Not Exists b2_committer Character Set UTF8;
-USE b2_committer;
+Create Database If Not Exists abe_committer Character Set UTF8;
+USE abe_committer;
 
 
 SET NAMES utf8mb4;

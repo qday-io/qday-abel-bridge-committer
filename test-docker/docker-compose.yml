@@ -3,7 +3,7 @@ version: "3"
 services:
   mysql1:
     container_name: mysql1
-    image: mysql:8.0.28
+    image: mysql:8.4.0-oraclelinux9
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     ports:
@@ -11,6 +11,49 @@ services:
     volumes:
       - ./mysql.sql:/docker-entrypoint-initdb.d/init.sql
       - ./mysql1/datadir:/var/lib/mysql
+
+  node1:
+    depends_on:
+      - mysql1
+    environment:
+      LOG_LEVEL: "info"
+      LOG_FORMAT: "console"
+      MYSQL_DATA_SOURCE: "root:root@tcp(mysql1:3306)/abe_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"
+      MYSQL_MAX_IDLE_CONNS: "10"
+      MYSQL_MAX_OPEN_CONNS: "20"
+      MYSQL_CONN_MAX_LIFETIME: "3600"
+      RPC_URL: "http://159.138.106.168:8545"
+      BLOCKCHAIN: "abe-node"
+      INIT_BLOCK_NUMBER: "300"
+      INIT_BLOCK_HASH: "0x0c4408fab90dae9ee884f255ba647aabd387182809f43aa416fd2d255b0f7c4f"
+      POLYGON_ZKEVM_ADDRESS: "0xBEfc6B93f8987758231f2381B562996deeE963F9"
+      PROPOSAL_BATCHES_LIMITNUM: "2"
+      INIT_PROPOSAL_ID: "1"
+      B2NODE_PRIVATE_KEY: "8623eb1173b001788b7dc789513c34d049a3d02c728b50daae5799fca009e111"
+      B2NODE_ADDRESS: "ethm1e7s8kwnlcnd5vk8fx0jrfpy5cn5wfmwakc5azp"
+      B2NODE_CHAIN_ID: "ethermint_9000-1"
+      B2NODE_GRPC_HOST: "159.138.106.168"
+      B2NODE_GRPC_PORT: "9090"
+      B2NODE_RPC_URL: "http://159.138.106.168:9090"
+      B2NODE_COIN_DENOM: "aphoton"
+      BITCOIN_NETWORK_NAME: "signet"
+      BITCOIN_PRIVATE_KEY: "L2Wv2kPRs4iJ8zFwQmTPBvrPQY7DS591LdmTEqu4x6GXX4yVDr7h"
+      COMMITTER_DESTINATION_ADDRESS: "bc1peuj9pfr4leqnfmem4nrsxl2cqcz2hafw7k6luxzrxcr545fywm3qrsfvtj"
+      ENDPOINT : "https://testnet-snode.abelian.info/v1/single-account"
+      RPCENDPOINT : "https://testnet-rpc-00.abelian.info"
+      USERNAME : "J8y0OnkS2wx9XEgUlW5MqtoRDAQ="
+      PASSWORD : "ULlXc/ZMJ375cn6VuSbtU+Y3KGQ="
+      APPID : "8b9ca2d7"
+      REQUEST_SIGNATURE : "randstring"
+      USERID : "abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"
+      FROM : "abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"
+      RECIPIENT : "abe338491ef250a530f6b1a771d45ae168f81d6a430f20623849e448b870f0f95e13f12ba51bff83497480db944567750e3cf555cd9811db95b848ca93d45c1448d0"
+      PRIVATE_KEY : "0000000064a27b5f97581f0eaeb482d09fb963e0e19f73eb476b6de0d9821967abdc8ea9336bf818d3828d94eb2bfca150fec85dccbbc18c6c6d39a3bd2fbb2a5801c525c42815fe86639ad806246bac5810ea820bdd3ce87d0c1718716019aba621cd3507156e8a72e7a41d81615788392dfd42974ead6a229aeebedf448f091e517d85"
+      AUTHTOKEN : "8b9ca2d7f0d4d76e17d02f6f5f82e595"
+
+    image: ghcr.io/mindcarver/abe-committer:v0.1
+
+
 
 #  mysql2:
 #    image: mysql:8.0.28
@@ -21,37 +64,6 @@ services:
 #    volumes:
 #      - ./mysql.sql:/docker-entrypoint-initdb.d/init.sql
 #      - ./mysql2/datadir:/var/lib/mysql
-
-  node1:
-    depends_on:
-      - mysql1
-    environment:
-      LOG_LEVEL: "info"
-      LOG_FORMAT: "console"
-      MYSQL_DATA_SOURCE: "root:root@tcp(mysql1:3306)/b2_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"
-      MYSQL_MAX_IDLE_CONNS: "10"
-      MYSQL_MAX_OPEN_CONNS: "20"
-      MYSQL_CONN_MAX_LIFETIME: "3600"
-      RPC_URL: "https://habitat-b2-nodes.bsquared.network"
-      BLOCKCHAIN: "b2-node"
-      INIT_BLOCK_NUMBER: "70000"
-      INIT_BLOCK_HASH: "0xb2fa3c8011ce25bb1d261403107b58b6aeda8a2af3827e86ad70ee081966d99c"
-      POLYGON_ZKEVM_ADDRESS: "0xd9571Aaf414b0F51d40D6738813FA4eA782d18B7"
-      PROPOSAL_BATCHES_LIMITNUM: "10"
-      INIT_PROPOSAL_ID: "1"
-      B2NODE_PRIVATE_KEY_HEX: "b2dd35d83b69d0d572616713148e83ba7d7f02fb14f442ffc4246319c61a3fa3"
-      B2NODE_ADDRESS: "ethm1nns7nx6cjkrcr9nxwmct4paxjw9md4c9ct6x75"
-      B2NODE_CHAIN_ID: "ethermint_9000-1"
-      B2NODE_GRPC_HOST: "host.docker.internal"
-      B2NODE_GRPC_PORT: "9090"
-      B2NODE_RPC_URL: "http://host.docker.internal:8545"
-      B2NODE_COIN_DENOM: "aphoton"
-      BITCOIN_NETWORK_NAME: "testnet3"
-      BITCOIN_PRIVATE_KEY: "55968c09fb90a496096bafdeaac0f791f527b17324d1d0e63d3550e68a7b0cc5"
-      COMMITTER_DESTINATION_ADDRESS: "tb1ptlp06cp6da4quje623ne8ataf2d4jy80m3jyjqr34c6dp6s5jddqtusute"
-    image: ghcr.io/b2network/b2-committer:sha-6bb326e
-#
-#
 #  node2:
 #    environment:
 #      LOG_LEVEL: "info"
