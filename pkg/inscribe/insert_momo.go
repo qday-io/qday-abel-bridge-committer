@@ -106,7 +106,7 @@ func GenerateMemoData(from, stateRootHash, proofRootHash string) ([]byte, error)
 	memoBytes = append(memoBytes, byte(len(jsonBytes)>>8), byte(len(jsonBytes)&0xFF)) // 第3-4字节为长度
 	memoBytes = append(memoBytes, byte(crcValue>>8), byte(crcValue&0xFF))             // 第5-6字节为CRC16校验码
 	memoBytes = append(memoBytes, byte(RESERVEDFIELD>>8), byte(RESERVEDFIELD&0xFF))   // 第7-8字节预留字段
-	memoBytes = append(memoBytes, base64EncodedMemo...)                               // base64编码的memo数据
+	memoBytes = append(memoBytes, jsonBytes...)                                       // base64编码的memo数据
 
 	return memoBytes, nil
 }
