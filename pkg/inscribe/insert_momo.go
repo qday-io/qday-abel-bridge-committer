@@ -1,7 +1,6 @@
 package inscribe
 
 import (
-	"encoding/base64"
 	"encoding/json"
 
 	"github.com/b2network/b2committer/internal/types"
@@ -94,8 +93,6 @@ func GenerateMemoData(from, stateRootHash, proofRootHash string) ([]byte, error)
 	if err != nil {
 		return nil, err
 	}
-
-	base64EncodedMemo := base64.StdEncoding.EncodeToString(jsonBytes)
 
 	table := crc16.MakeTable(crc16.CRC16_XMODEM)
 	crcValue := crc16.Checksum(jsonBytes, table)
