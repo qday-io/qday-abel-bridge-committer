@@ -5,6 +5,7 @@ import (
 
 	"github.com/b2network/b2committer/pkg/abec"
 	"github.com/b2network/b2committer/pkg/b2node"
+	"github.com/cenkalti/backoff"
 
 	"github.com/b2network/b2committer/pkg/log"
 
@@ -34,11 +35,9 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2nodeConfig *types.B2NODEConfig, abecCfg *types.AbecConfig) *ServiceContext {
-	storage, err := gorm.Open(mysql.Open(cfg.MySQLDataSource), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
-	})
+	storage, err := connectToDB(cfg)
 	if err != nil {
-		log.Panicf("[svc]gorm get db panic: %s\n", err)
+		log.Panicf("[svc]gorm get db after retries failed: %s\n", err)
 	}
 
 	sqlDB, err := storage.DB()
@@ -80,4 +79,27 @@ func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2
 		AbecClient:        abecClient,
 	}
 	return svc
+}
+func connectToDB(cfg *types.Config) (*gorm.DB, error) {
+	var (
+		err     error
+		storage *gorm.DB
+	)
+
+	operation := func() error {
+		storage, err = gorm.Open(mysql.Open(cfg.MySQLDataSource), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
+		return err
+	}
+
+	bo := backoff.NewExponentialBackOff()
+	bo.MaxElapsedTime = 30 * time.Second
+
+	err = backoff.Retry(operation, bo)
+	if err != nil {
+		return nil, err
+	}
+
+	return storage, nil
 }
