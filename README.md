@@ -1,4 +1,4 @@
-# b2-committer
+# abe-committer
 
 ## Introduction
 
