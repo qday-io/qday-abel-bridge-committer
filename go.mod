@@ -9,12 +9,14 @@ require (
 	github.com/btcsuite/btcd/btcutil v1.1.2
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.1
 	github.com/caarlos0/env/v6 v6.10.1
+	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/cosmos/cosmos-sdk v0.46.11
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/evmos/ethermint v0.22.0
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.8.4
+	github.com/tidwall/gjson v1.14.4
 	github.com/txaty/go-merkletree v0.2.2
 	go.uber.org/zap v1.23.0
 	google.golang.org/grpc v1.60.1
@@ -31,7 +33,7 @@ require (
 	cosmossdk.io/errors v1.0.0-beta.7 // indirect
 	filippo.io/edwards25519 v1.0.0-rc.1 // indirect
 	github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 // indirect
-	github.com/99designs/keyring v1.2.1 // indirect
+	github.com/99designs/keyring v1.2.2 // indirect
 	github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/aead/siphash v1.0.1 // indirect
@@ -134,6 +136,7 @@ require (
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
+	github.com/sigurn/crc16 v0.0.0-20240131213347-83fcde1e29d1
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.7.0 // indirect
@@ -146,7 +149,6 @@ require (
 	github.com/tendermint/tendermint v0.34.27 // indirect
 	github.com/tendermint/tm-db v0.6.7 // indirect
 	github.com/tidwall/btree v1.5.0 // indirect
-	github.com/tidwall/gjson v1.14.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/tidwall/sjson v1.2.5 // indirect
@@ -187,5 +189,4 @@ replace (
 	github.com/evmos/ethermint => github.com/b2network/b2-node v0.0.0-20240204125823-c364bff9b6f1
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
-
 )

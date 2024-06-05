@@ -1,11 +1,7 @@
 package handler
 
 import (
-	"encoding/json"
 	"time"
-
-	"github.com/b2network/b2committer/pkg/btcapi"
-	btcmempool "github.com/b2network/b2committer/pkg/btcapi/mempool"
 
 	"github.com/b2network/b2committer/pkg/inscribe"
 
@@ -40,38 +36,39 @@ func Inscribe(ctx *svc.ServiceContext) {
 		}
 		if proposal.Status == schema.PendingStatus &&
 			proposal.Winner == ctx.B2NodeConfig.Address && proposal.BitcoinTxHash == "" {
-			rs, err := inscribe.Inscribe(ctx.BTCConfig.PrivateKey, proposal.StateRootHash, proposal.ProofHash, ctx.BTCConfig.DestinationAddress, btcapi.ChainParams(ctx.BTCConfig.NetworkName))
+			memo, err := inscribe.GenerateMemoData(ctx.AbecConfig.From, proposal.StateRootHash, proposal.ProofHash)
 			if err != nil {
-				log.Errorf("[Handler.Inscribe] Inscribe err: %s\n", errors.WithStack(err).Error())
+				log.Errorf("[Handler.Inscribe] GenerateMemoData err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
-			str, err := json.Marshal(rs)
-			if err != nil {
-				log.Errorf("[Handler.Inscribe] Marshal result err: %s\n", errors.WithStack(err).Error())
-				continue
-			}
-			log.Infof("[Handler.Inscribe] inscribe result: %s", str)
-			bitcoinTxHash := rs.RevealTxHashList[0].String()
 
-			_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Winner, bitcoinTxHash)
+			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo, "10000")
+			if err != nil {
+				log.Errorf("[Handler.Inscribe] UserTransferToSingleRecipient err: %s\n", errors.WithStack(err).Error())
+				continue
+			}
+
+			_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Winner, abecTxHash)
 			if err != nil {
 				log.Errorf("[Handler.Inscribe] BitcoinTx err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
-			dbProposal.BtcRevealTxHash = bitcoinTxHash
-			dbProposal.BtcCommitTxHash = rs.CommitTxHash.String()
+
+			dbProposal.BtcRevealTxHash = abecTxHash
 
 			ctx.DB.Save(dbProposal)
 		}
 		if proposal.Status == schema.PendingStatus && proposal.BitcoinTxHash != "" && proposal.Winner != ctx.B2NodeConfig.Address {
-			// 拿到bitcoin 去btc network query一下 确认状态 对比大于6个高度后 确认后就提交提案
-			btcAPIClient := btcmempool.NewClient(btcapi.ChainParams(ctx.BTCConfig.NetworkName))
-			transaction, err := btcAPIClient.GetTransactionByID(proposal.BitcoinTxHash)
+			// 确认状态 对比大于6个高度后 确认后就提交提案
+			confirmed, blockHeight, err := ctx.AbecClient.GetTxConfirmedStatus(proposal.BitcoinTxHash, ctx.AbecConfig.APPID,
+				ctx.AbecConfig.UserID, ctx.AbecConfig.RequestSignature)
+
 			if err != nil {
-				log.Errorf("[Handler.Inscribe] GetTransactionByID err: %s\n", errors.WithStack(err).Error())
+				log.Errorf("[Handler.Inscribe] GetTxConfirmedStatus err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
-			if transaction.Status.Confirmed && (ctx.LatestBTCBlockNumber-transaction.Status.BlockHeight) >= 6 {
+
+			if confirmed && (ctx.LatestBTCBlockNumber-blockHeight) >= 6 {
 				_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Proposer, proposal.BitcoinTxHash)
 				if err != nil {
 					log.Errorf("[Handler.Inscribe] BitcoinTx err: %s\n", errors.WithStack(err).Error())

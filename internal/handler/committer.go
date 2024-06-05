@@ -174,7 +174,7 @@ func GetVerifyBatchesFromStartBatchNum(ctx *svc.ServiceContext, startBatchNum ui
 	if err != nil {
 		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] dbbase err: %s", err)
 	}
-	if len(events) != 10 {
+	if len(events) != ctx.Config.LimitNum {
 		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] sync_events find event is not enough %s", err)
 	}
 	verifyBatchesAndTxHashs := make([]*VerifyBatchesAndTxHash, 0, limit)
