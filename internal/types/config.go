@@ -10,14 +10,14 @@ type Config struct {
 	LogLevel string `env:"LOG_LEVEL" envDefault:"info"`
 	// "console","json"
 	LogFormat            string `env:"LOG_FORMAT" envDefault:"console"`
-	MySQLDataSource      string `env:"MYSQL_DATA_SOURCE" envDefault:"root:123456@tcp(127.0.0.1:3306)/abe_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"`
+	MySQLDataSource      string `env:"MYSQL_DATA_SOURCE" envDefault:"root:root@tcp(127.0.0.1:3366)/abe_committer?charset=utf8mb4&parseTime=True&loc=Local&multiStatements=true"`
 	MySQLMaxIdleConns    int    `env:"MYSQL_MAX_IDLE_CONNS" envDefault:"10"`
 	MySQLMaxOpenConns    int    `env:"MYSQL_MAX_OPEN_CONNS" envDefault:"20"`
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
 	RPCUrl               string `env:"RPC_URL" envDefault:"http://124.243.132.119:8545"`
 	Blockchain           string `env:"BLOCKCHAIN" envDefault:"b2-node"`
-	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"1"`
-	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0xadbe5a68a375abda7b63a861bbceca5e43089a63ea13ff1da53f58810ed290f3"`
+	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"15000"`
+	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0xa8489891c72afd883114141653e8529a2175cd516ce825c118c05cc76a8be045"`
 	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0xdde8f57d008D36C9476c5DF5525F7C5B52B03647"`
 	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"2"`
 	InitProposalID       uint64 `evn:"INIT_PROPOSAL_ID" envDefault:"1"`

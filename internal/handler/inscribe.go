@@ -42,7 +42,7 @@ func Inscribe(ctx *svc.ServiceContext) {
 				continue
 			}
 
-			time.Sleep(12 * time.Second)
+			time.Sleep(5 * time.Second)
 			log.Infof("[Handler.Inscribe] Inscribe to abec, memo: %s\n", proposal.Id)
 			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo, "10000")
 			if err != nil {
@@ -50,11 +50,13 @@ func Inscribe(ctx *svc.ServiceContext) {
 				continue
 			}
 
+			log.Infof("[Handler.Inscribe] Inscribe to abec [start], abecTxHash: %s\n", abecTxHash)
 			_, err = ctx.NodeClient.BitcoinTx(proposal.Id, proposal.Winner, abecTxHash)
 			if err != nil {
 				log.Errorf("[Handler.Inscribe] BitcoinTx err: %s\n", errors.WithStack(err).Error())
 				continue
 			}
+			log.Infof("[Handler.Inscribe] Inscribe to abec [end], abecTxHash: %s\n", abecTxHash)
 
 			dbProposal.BtcRevealTxHash = abecTxHash
 

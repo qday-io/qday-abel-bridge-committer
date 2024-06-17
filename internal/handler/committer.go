@@ -45,6 +45,9 @@ func Committer(ctx *svc.ServiceContext) {
 	for {
 		var proposals []schema.Proposal
 		lastProposalID, lastFinalBatchNum, err := ctx.NodeClient.QueryLastProposalID()
+
+		log.Infof("[Handler.Committer] query last proposalID--start: %s\n", lastProposalID)
+
 		if err != nil {
 			log.Errorf("[Handler.Committer][QueryLastProposalID] error info: %s", errors.WithStack(err).Error())
 			time.Sleep(10 * time.Second)
@@ -66,12 +69,15 @@ func Committer(ctx *svc.ServiceContext) {
 			time.Sleep(10 * time.Second)
 			continue
 		}
+
+		log.Infof("[Handler.Committer] start commit proposal-----middle: %s\n", lastProposalID)
 		err = committerProposal(ctx, verifyBatchInfo, lastProposalID)
 		if err != nil {
 			log.Errorf("[Handler.Committer] error info: %s", errors.WithStack(err).Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
+		log.Infof("[Handler.Committer] successful commit proposal-----end: %s\n", lastProposalID)
 		time.Sleep(3 * time.Second)
 	}
 }
@@ -98,6 +104,7 @@ func GetVerifyBatchInfoByLastBatchNum(ctx *svc.ServiceContext, lastFinalBatchNum
 
 // CommitterProposal committer transaction to b2-node
 func committerProposal(ctx *svc.ServiceContext, verifyBatchInfo *VerifyRangBatchInfo, lastProposalID uint64) error {
+
 	proposalID, err := ctx.NodeClient.SubmitProof(lastProposalID+1, ctx.B2NodeConfig.Address, verifyBatchInfo.proofRootHash, verifyBatchInfo.stateRootHash,
 		verifyBatchInfo.startBatchNum, verifyBatchInfo.endBatchNum)
 	if err != nil {
