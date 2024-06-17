@@ -45,15 +45,15 @@ func TestAbecClient_UserTransferToSingleRecipient(t *testing.T) {
 		endpoint:  "https://testnet-snode.abelian.info/v1/single-account",
 		username:  "",
 		password:  "",
-		authToken: "8b9ca2d7e10adc3917d963e4dcd0bc04",
+		authToken: "cce71078669ded3517d961a2d57eb440",
 	}
 
 	cfg := &types.AbecConfig{}
-	cfg.APPID = "8b9ca2d7"
-	cfg.RequestSignature = "randstring"
-	cfg.UserID = "abe32f5c9dd67b6f0e11333fc54e4b54d1f05456ea0e2abc6e1459b056271e3de6180f7cca4ca880a8839c72d412987ffd47d7fdca60fce5838bfcbea68dd741146b"
+	cfg.APPID = "cce71078"
+	cfg.RequestSignature = "0x338i3jejjd"
+	cfg.UserID = "abe3b614871d6db00503f6e8108260f1943a3a70c09557cbb7dbce3df9a411fdb9b161572931a185fb853ccc8d2f2a6f12d8cf295b40659e2e1608650783c7ecdc78"
 	cfg.Recipient = "abe338491ef250a530f6b1a771d45ae168f81d6a430f20623849e448b870f0f95e13f12ba51bff83497480db944567750e3cf555cd9811db95b848ca93d45c1448d0"
-	cfg.PrivateKey = "0000000064a27b5f97581f0eaeb482d09fb963e0e19f73eb476b6de0d9821967abdc8ea9336bf818d3828d94eb2bfca150fec85dccbbc18c6c6d39a3bd2fbb2a5801c525c42815fe86639ad806246bac5810ea820bdd3ce87d0c1718716019aba621cd3507156e8a72e7a41d81615788392dfd42974ead6a229aeebedf448f091e517d85"
+	cfg.PrivateKey = "000000009e7521a87e1030fec16e2c1bf46b4f49976c6a4db43e64373875cce74b69385d016b8fd9c17dc62d570389bf9686952d5528420b046d38d5d2737e1598e4cdbcc4de0165cfb8953a17b79af4b3b9da9de7d39f8806eacfeea9fae965c07bc561074e7b2fa2a76baf2eb41006b6fb075f41249f923bb5c7f98b1db92967b1c2b5"
 	memo := []byte("ddddddddddd")
 
 	got, err := b.UserTransferToSingleRecipient(cfg, memo, "10000")
