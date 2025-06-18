@@ -9,9 +9,9 @@ import (
 
 	"github.com/b2network/b2committer/pkg/log"
 
-	"github.com/b2network/b2committer/internal/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

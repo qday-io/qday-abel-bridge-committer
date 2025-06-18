@@ -3,7 +3,7 @@ package abec
 import (
 	"testing"
 
-	"github.com/b2network/b2committer/internal/types"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 	"github.com/sigurn/crc16"
 )
 

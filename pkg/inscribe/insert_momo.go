@@ -3,7 +3,7 @@ package inscribe
 import (
 	"encoding/json"
 
-	"github.com/b2network/b2committer/internal/types"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 	"github.com/sigurn/crc16"
 )
 

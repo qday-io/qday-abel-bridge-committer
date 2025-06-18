@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/b2network/b2committer/internal/handler"
-	"github.com/b2network/b2committer/internal/svc"
-	"github.com/b2network/b2committer/internal/types"
 	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/handler"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 	"github.com/shopspring/decimal"
 )
 

@@ -9,13 +9,13 @@ import (
 
 	"github.com/b2network/b2committer/pkg/log"
 
-	"github.com/b2network/b2committer/internal/schema"
-	"github.com/b2network/b2committer/internal/svc"
 	"github.com/b2network/b2committer/pkg/event/zkevm"
 	"github.com/b2network/b2committer/pkg/merkle"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 	mt "github.com/txaty/go-merkletree"
 )
 

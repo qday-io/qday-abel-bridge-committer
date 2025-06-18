@@ -7,14 +7,14 @@ import (
 
 	"github.com/b2network/b2committer/pkg/log"
 
-	"github.com/b2network/b2committer/internal/blockchain"
-	"github.com/b2network/b2committer/internal/schema"
-	"github.com/b2network/b2committer/internal/svc"
 	"github.com/b2network/b2committer/pkg/event"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/pkg/errors"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/blockchain"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 )
 
 func LogBatchFilter(ctx *svc.ServiceContext, startBlock, endBlock int64, addresses []common.Address, topics [][]common.Hash) ([]*schema.SyncEvent, error) {

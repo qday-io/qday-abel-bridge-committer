@@ -6,11 +6,11 @@ import (
 
 	"github.com/b2network/b2committer/pkg/log"
 
-	"github.com/b2network/b2committer/internal/schema"
-	"github.com/b2network/b2committer/internal/svc"
 	"github.com/b2network/b2committer/pkg/rpc"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 	"gorm.io/gorm"
 )
 

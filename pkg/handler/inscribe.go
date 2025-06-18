@@ -7,9 +7,9 @@ import (
 
 	"github.com/b2network/b2committer/pkg/log"
 
-	"github.com/b2network/b2committer/internal/schema"
-	"github.com/b2network/b2committer/internal/svc"
 	"github.com/pkg/errors"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 )
 
 // Inscribe check proposal statues. process pending proposal.

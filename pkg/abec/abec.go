@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/b2network/b2committer/internal/types"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 	"github.com/tidwall/gjson"
 )
 

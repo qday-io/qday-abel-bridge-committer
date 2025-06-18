@@ -8,8 +8,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/b2network/b2committer/internal/types"
 	xcommitterTypes "github.com/evmos/ethermint/x/committer/types"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"
 )
 
 func TestGetAccountInfo(t *testing.T) {

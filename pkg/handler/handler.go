@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/b2network/b2committer/internal/svc"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 )
 
 func Run(ctx *svc.ServiceContext) {
