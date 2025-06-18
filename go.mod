@@ -1,4 +1,4 @@
-module github.com/b2network/b2committer
+module github.com/qday-io/qday-abel-bridge-committer
 
 go 1.21
 
@@ -189,4 +189,6 @@ replace (
 	github.com/evmos/ethermint => github.com/b2network/b2-node v0.0.0-20240204125823-c364bff9b6f1
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
+	github.com/b2network/b2committer => .
+
 )
