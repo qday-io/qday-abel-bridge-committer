@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	"github.com/b2network/b2committer/pkg/event/zkevm"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/event/zkevm"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	config "github.com/qday-io/qday-abel-bridge-committer/pkg/types"

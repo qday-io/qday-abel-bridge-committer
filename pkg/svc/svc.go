@@ -3,11 +3,11 @@ package svc
 import (
 	"time"
 
-	"github.com/b2network/b2committer/pkg/abec"
-	"github.com/b2network/b2committer/pkg/b2node"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/abec"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/b2node"
 	"github.com/cenkalti/backoff"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"

@@ -3,7 +3,7 @@ package zkevm
 import (
 	"encoding/json"
 
-	"github.com/b2network/b2committer/pkg/event"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/event"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"

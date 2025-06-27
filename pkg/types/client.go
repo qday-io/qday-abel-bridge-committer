@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

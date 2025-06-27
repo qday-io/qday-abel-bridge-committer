@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/handler"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/types"

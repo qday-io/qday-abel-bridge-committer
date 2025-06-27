@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"

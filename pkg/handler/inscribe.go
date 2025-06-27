@@ -3,9 +3,9 @@ package handler
 import (
 	"time"
 
-	"github.com/b2network/b2committer/pkg/inscribe"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/inscribe"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
 	"github.com/pkg/errors"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"

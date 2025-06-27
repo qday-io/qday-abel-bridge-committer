@@ -5,9 +5,9 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
-	"github.com/b2network/b2committer/pkg/event"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/event"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"

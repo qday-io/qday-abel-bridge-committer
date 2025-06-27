@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 	"github.com/caarlos0/env/v6"
 )
 

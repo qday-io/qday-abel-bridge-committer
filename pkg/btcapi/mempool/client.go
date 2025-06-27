@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/b2network/b2committer/pkg/btcapi"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/btcapi"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"

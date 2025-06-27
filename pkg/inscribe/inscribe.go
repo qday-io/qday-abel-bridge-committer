@@ -4,10 +4,10 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
-	"github.com/b2network/b2committer/pkg/btcapi"
-	btcmempool "github.com/b2network/b2committer/pkg/btcapi/mempool"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/btcapi"
+	btcmempool "github.com/qday-io/qday-abel-bridge-committer/pkg/btcapi/mempool"
 	"github.com/btcsuite/btcd/mempool"
 	"github.com/btcsuite/btcd/rpcclient"
 

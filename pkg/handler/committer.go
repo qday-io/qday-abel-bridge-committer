@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
-	"github.com/b2network/b2committer/pkg/event/zkevm"
-	"github.com/b2network/b2committer/pkg/merkle"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/event/zkevm"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/merkle"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"

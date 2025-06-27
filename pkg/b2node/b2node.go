@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/b2network/b2committer/pkg/rpc"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/rpc"
 
 	sdkmath "cosmossdk.io/math"
 

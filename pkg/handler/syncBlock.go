@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b2network/b2committer/pkg/log"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
-	"github.com/b2network/b2committer/pkg/rpc"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/rpc"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
