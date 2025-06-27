@@ -1,3 +1,4 @@
 FROM alpine:latest
-COPY ./build/main /usr/bin/main
-CMD ["/usr/bin/main"]
+WORKDIR /app
+COPY ./committer /app/committer
+CMD ["/app/committer"]
