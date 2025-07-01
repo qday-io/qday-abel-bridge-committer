@@ -14,23 +14,23 @@ type Config struct {
 	MySQLMaxIdleConns    int    `env:"MYSQL_MAX_IDLE_CONNS" envDefault:"10"`
 	MySQLMaxOpenConns    int    `env:"MYSQL_MAX_OPEN_CONNS" envDefault:"20"`
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
-	RPCUrl               string `env:"RPC_URL" envDefault:"http://124.243.132.119:8545"`
-	Blockchain           string `env:"BLOCKCHAIN" envDefault:"b2-node"`
-	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"15000"`
-	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0xa8489891c72afd883114141653e8529a2175cd516ce825c118c05cc76a8be045"`
-	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0xdde8f57d008D36C9476c5DF5525F7C5B52B03647"`
+	RPCUrl               string `env:"RPC_URL" envDefault:"http://190.92.213.101:8545"`
+	Blockchain           string `env:"BLOCKCHAIN" envDefault:"da-node"`
+	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"99369"`
+	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x60cb0477cdbe3ee88536414004f93d20d3a439aa7df116195e896b9b924ec7ac"`
+	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0x59C123c2901245F3A38E009Eb341d34CC4609a8E"`
 	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"2"`
 	InitProposalID       uint64 `evn:"INIT_PROPOSAL_ID" envDefault:"1"`
 }
 
 type B2NODEConfig struct {
-	Address    string `env:"B2NODE_ADDRESS" envDefault:"ethm14vggzqz4nlyhzhr36m5fmskdqms3q5p6xp3vrl"`
+	Address    string `env:"B2NODE_ADDRESS" envDefault:"ethm17nhkv58y35ye5jtjafd5zndtsmsenz7nlxh60c"`
 	ChainID    string `env:"B2NODE_CHAIN_ID" envDefault:"ethermint_9000-1"`
-	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"124.243.132.119"`
+	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"190.92.213.101"`
 	GRPCPort   uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9090"`
-	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://124.243.132.119:9090"`
+	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://190.92.213.101:9090"`
 	CoinDenom  string `env:"B2NODE_COIN_DENOM" envDefault:"aphoton"`
-	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"F07814758C2CF31ED1D7D1C696896B4EEC57D4A1837E7A10E4D5100E23620715"`
+	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"2ee789a68207020b45607f5adb71933de0946baebbaaab74af7cbd69c8a90573"`
 }
 
 // type BitcoinRPCConfig struct {
