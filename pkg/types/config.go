@@ -1,8 +1,8 @@
 package types
 
 import (
-	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 	"github.com/caarlos0/env/v6"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 )
 
 type Config struct {
@@ -33,11 +33,11 @@ type B2NODEConfig struct {
 	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"F07814758C2CF31ED1D7D1C696896B4EEC57D4A1837E7A10E4D5100E23620715"`
 }
 
-type BitcoinRPCConfig struct {
-	NetworkName        string `env:"BITCOIN_NETWORK_NAME" envDefault:"signet"`
-	PrivateKey         string `env:"BITCOIN_PRIVATE_KEY" envDefault:"L2Wv2kPRs4iJ8zFwQmTPBvrPQY7DS591LdmTEqu4x6GXX4yVDr7h"`
-	DestinationAddress string `env:"COMMITTER_DESTINATION_ADDRESS" envDefault:"bc1peuj9pfr4leqnfmem4nrsxl2cqcz2hafw7k6luxzrxcr545fywm3qrsfvtj"`
-}
+// type BitcoinRPCConfig struct {
+// 	NetworkName        string `env:"BITCOIN_NETWORK_NAME" envDefault:"signet"`
+// 	PrivateKey         string `env:"BITCOIN_PRIVATE_KEY" envDefault:"L2Wv2kPRs4iJ8zFwQmTPBvrPQY7DS591LdmTEqu4x6GXX4yVDr7h"`
+// 	DestinationAddress string `env:"COMMITTER_DESTINATION_ADDRESS" envDefault:"bc1peuj9pfr4leqnfmem4nrsxl2cqcz2hafw7k6luxzrxcr545fywm3qrsfvtj"`
+// }
 
 type AbecConfig struct {
 	Endpoint         string `env:"ENDPOINT" envDefault:"https://testnet-snode.abelian.info/v1/single-account"`
@@ -54,8 +54,8 @@ type AbecConfig struct {
 }
 
 var (
-	config       *Config
-	btcRPCConfig *BitcoinRPCConfig
+	config *Config
+	// btcRPCConfig *BitcoinRPCConfig
 	b2nodeConfig *B2NODEConfig
 	abecCfg      *AbecConfig
 )
@@ -72,17 +72,17 @@ func GetConfig() *Config {
 	return config
 }
 
-func GetBtcConfig() *BitcoinRPCConfig {
-	if btcRPCConfig == nil {
-		cfg := &BitcoinRPCConfig{}
-		if err := env.Parse(cfg); err != nil {
-			log.Panicf("parse config err: %s\n", err)
-			return nil
-		}
-		btcRPCConfig = cfg
-	}
-	return btcRPCConfig
-}
+// func GetBtcConfig() *BitcoinRPCConfig {
+// 	if btcRPCConfig == nil {
+// 		cfg := &BitcoinRPCConfig{}
+// 		if err := env.Parse(cfg); err != nil {
+// 			log.Panicf("parse config err: %s\n", err)
+// 			return nil
+// 		}
+// 		btcRPCConfig = cfg
+// 	}
+// 	return btcRPCConfig
+// }
 
 func GetB2nodeConfig() *B2NODEConfig {
 	if b2nodeConfig == nil {

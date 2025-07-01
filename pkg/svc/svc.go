@@ -3,9 +3,9 @@ package svc
 import (
 	"time"
 
+	"github.com/cenkalti/backoff"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/abec"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/b2node"
-	"github.com/cenkalti/backoff"
 
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
@@ -20,10 +20,10 @@ import (
 var svc *ServiceContext
 
 type ServiceContext struct {
-	Config               *types.Config
-	RPC                  *ethclient.Client
-	DB                   *gorm.DB
-	BTCConfig            *types.BitcoinRPCConfig
+	Config *types.Config
+	RPC    *ethclient.Client
+	DB     *gorm.DB
+	// BTCConfig            *types.BitcoinRPCConfig
 	B2NodeConfig         *types.B2NODEConfig
 	AbecConfig           *types.AbecConfig
 	LatestBlockNumber    int64
@@ -34,7 +34,7 @@ type ServiceContext struct {
 	LatestBTCBlockNumber int64
 }
 
-func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2nodeConfig *types.B2NODEConfig, abecCfg *types.AbecConfig) *ServiceContext {
+func NewServiceContext(cfg *types.Config, b2nodeConfig *types.B2NODEConfig, abecCfg *types.AbecConfig) *ServiceContext {
 	storage, err := connectToDB(cfg)
 	if err != nil {
 		log.Panicf("[svc]gorm get db after retries failed: %s\n", err)
@@ -68,7 +68,7 @@ func NewServiceContext(cfg *types.Config, bitcoinCfg *types.BitcoinRPCConfig, b2
 	abecClient := abec.NewClient(abecCfg.Endpoint, abecCfg.Username, abecCfg.Password, abecCfg.AuthToken, abecCfg.RpcEndpoint)
 
 	svc = &ServiceContext{
-		BTCConfig:         bitcoinCfg,
+		// BTCConfig:         bitcoinCfg,
 		DB:                storage,
 		Config:            cfg,
 		RPC:               rpc,
