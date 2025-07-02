@@ -110,6 +110,9 @@ func (b *AbecClient) newRequest(id string, method string, params map[string]inte
 
 	url := b.rpcEndpoint
 
+	fmt.Printf("url:%s\n\n", url)
+	fmt.Printf("req.json:%s\n\n", string(jsonBody))
+
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
 	if err != nil {
 		return nil, err
@@ -134,6 +137,8 @@ func (b *AbecClient) newRequestAuth2(id int64, method string, params map[string]
 
 	url := b.endpoint
 
+	fmt.Printf("url:%s\n\n", url)
+	fmt.Printf("req.json:%s\n\n", string(jsonBody))
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(jsonBody))
 	if err != nil {
 		return nil, err
@@ -171,6 +176,7 @@ func (b *AbecClient) getResponseFromChan(method string, params map[string]interf
 		return nil, err
 	}
 
+	fmt.Printf("resp.json:%s\n\n", string(body))
 	respObj := &AbecJSONRPCResponse{}
 	root := gjson.ParseBytes(body)
 	respObj.Result = []byte(root.Get("result").String())

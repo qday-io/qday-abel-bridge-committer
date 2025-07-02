@@ -60,7 +60,7 @@ func Committer(ctx *svc.ServiceContext) {
 			continue
 		}
 		if len(proposals) > 0 {
-			log.Errorf("[Handler.Committer] proposal already is existed, lastFinalBatchNum: %s", lastFinalBatchNum)
+			log.Errorf("[Handler.Committer] proposal already is existed, lastFinalBatchNum: %v", lastFinalBatchNum)
 			continue
 		}
 		verifyBatchInfo, err := GetVerifyBatchInfoByLastBatchNum(ctx, lastFinalBatchNum)
@@ -70,14 +70,14 @@ func Committer(ctx *svc.ServiceContext) {
 			continue
 		}
 
-		log.Infof("[Handler.Committer] start commit proposal-----middle: %s\n", lastProposalID)
+		log.Infof("[Handler.Committer] start commit proposal-----middle: %v\n", lastProposalID)
 		err = committerProposal(ctx, verifyBatchInfo, lastProposalID)
 		if err != nil {
 			log.Errorf("[Handler.Committer] error info: %s", errors.WithStack(err).Error())
 			time.Sleep(10 * time.Second)
 			continue
 		}
-		log.Infof("[Handler.Committer] successful commit proposal-----end: %s\n", lastProposalID)
+		log.Infof("[Handler.Committer] successful commit proposal-----end: %v\n", lastProposalID)
 		time.Sleep(3 * time.Second)
 	}
 }
@@ -179,17 +179,17 @@ func GetVerifyBatchesFromStartBatchNum(ctx *svc.ServiceContext, startBatchNum ui
 	err := ctx.DB.Table("sync_events").Select("*, JSON_EXTRACT(data, '$.numBatch') as numBatch").
 		Where("JSON_EXTRACT(data, '$.numBatch') > ?", startBatchNum).Order("numBatch").Limit(limit).Find(&events).Error
 	if err != nil {
-		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] dbbase err: %s", err)
+		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] dbbase err: %v", err)
 	}
 	if len(events) != ctx.Config.LimitNum {
-		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] sync_events find event is not enough %s", err)
+		return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] sync_events find event is not enough %v", err)
 	}
 	verifyBatchesAndTxHashs := make([]*VerifyBatchesAndTxHash, 0, limit)
 	for _, event := range events {
 		verifyBatch := &zkevm.VerifyBatches{}
 		err = verifyBatch.ToObj(event.Data)
 		if err != nil {
-			return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] parse event data error: %s", errors.WithStack(err))
+			return nil, fmt.Errorf("[GetVerifyBatchesFromStartBatchNum] parse event data error: %v", errors.WithStack(err))
 		}
 		verifyBatchesAndTxHash := &VerifyBatchesAndTxHash{
 			verifyBatches: verifyBatch,
