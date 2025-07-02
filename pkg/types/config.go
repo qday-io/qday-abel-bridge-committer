@@ -16,8 +16,8 @@ type Config struct {
 	MySQLConnMaxLifetime int    `env:"MYSQL_CONN_MAX_LIFETIME" envDefault:"3600"`
 	RPCUrl               string `env:"RPC_URL" envDefault:"http://190.92.213.101:8545"`
 	Blockchain           string `env:"BLOCKCHAIN" envDefault:"da-node"`
-	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"99369"`
-	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x60cb0477cdbe3ee88536414004f93d20d3a439aa7df116195e896b9b924ec7ac"`
+	InitBlockNumber      int64  `env:"INIT_BLOCK_NUMBER" envDefault:"1"`
+	InitBlockHash        string `env:"INIT_BLOCK_HASH" envDefault:"0x1db9fbef276c30cc9fdfba2a21d7cc4dd760fd2e76b8906571c6f56a706624bc"`
 	PolygonZKEVMAddress  string `env:"POLYGON_ZKEVM_ADDRESS" envDefault:"0x59C123c2901245F3A38E009Eb341d34CC4609a8E"`
 	LimitNum             int    `evn:"PROPOSAL_BATCHES_LIMITNUM" envDefault:"2"`
 	InitProposalID       uint64 `evn:"INIT_PROPOSAL_ID" envDefault:"1"`
@@ -28,7 +28,7 @@ type B2NODEConfig struct {
 	ChainID    string `env:"B2NODE_CHAIN_ID" envDefault:"ethermint_9000-1"`
 	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"190.92.213.101"`
 	GRPCPort   uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9090"`
-	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://190.92.213.101:9090"`
+	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://190.92.213.101:8545"`
 	CoinDenom  string `env:"B2NODE_COIN_DENOM" envDefault:"aphoton"`
 	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"2ee789a68207020b45607f5adb71933de0946baebbaaab74af7cbd69c8a90573"`
 }

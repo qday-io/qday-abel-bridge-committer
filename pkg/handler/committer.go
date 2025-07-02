@@ -9,11 +9,11 @@ import (
 
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/log"
 
-	"github.com/qday-io/qday-abel-bridge-committer/pkg/event/zkevm"
-	"github.com/qday-io/qday-abel-bridge-committer/pkg/merkle"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/event/zkevm"
+	"github.com/qday-io/qday-abel-bridge-committer/pkg/merkle"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/schema"
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/svc"
 	mt "github.com/txaty/go-merkletree"
@@ -46,7 +46,7 @@ func Committer(ctx *svc.ServiceContext) {
 		var proposals []schema.Proposal
 		lastProposalID, lastFinalBatchNum, err := ctx.NodeClient.QueryLastProposalID()
 
-		log.Infof("[Handler.Committer] query last proposalID--start: %s\n", lastProposalID)
+		log.Infof("[Handler.Committer] query last proposalID--start: %v\n", lastProposalID)
 
 		if err != nil {
 			log.Errorf("[Handler.Committer][QueryLastProposalID] error info: %s", errors.WithStack(err).Error())
