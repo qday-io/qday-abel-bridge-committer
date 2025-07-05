@@ -24,11 +24,11 @@ type Config struct {
 }
 
 type B2NODEConfig struct {
-	Address    string `env:"B2NODE_ADDRESS" envDefault:"ethm17nhkv58y35ye5jtjafd5zndtsmsenz7nlxh60c"`
-	ChainID    string `env:"B2NODE_CHAIN_ID" envDefault:"ethermint_9000-1"`
-	GRPCHost   string `env:"B2NODE_GRPC_HOST" envDefault:"190.92.213.101"`
-	GRPCPort   uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9090"`
-	RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://190.92.213.101:8545"`
+	Address  string `env:"B2NODE_ADDRESS" envDefault:"ethm17nhkv58y35ye5jtjafd5zndtsmsenz7nlxh60c"`
+	ChainID  string `env:"B2NODE_CHAIN_ID" envDefault:"ethermint_9000-1"`
+	GRPCHost string `env:"B2NODE_GRPC_HOST" envDefault:"190.92.213.101"`
+	GRPCPort uint32 `env:"B2NODE_GRPC_PORT" envDefault:"9090"`
+	//RPCUrl     string `env:"B2NODE_RPC_URL" envDefault:"http://190.92.213.101:8545"`
 	CoinDenom  string `env:"B2NODE_COIN_DENOM" envDefault:"aphoton"`
 	PrivateKey string `env:"B2NODE_PRIVATE_KEY" envDefault:"2ee789a68207020b45607f5adb71933de0946baebbaaab74af7cbd69c8a90573"`
 }

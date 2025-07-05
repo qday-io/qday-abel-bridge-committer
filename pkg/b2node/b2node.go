@@ -2,14 +2,9 @@ package b2node
 
 import (
 	"context"
-	"encoding/hex"
-	"encoding/json"
-	"fmt"
-	"strconv"
-
-	"github.com/qday-io/qday-abel-bridge-committer/pkg/rpc"
-
 	sdkmath "cosmossdk.io/math"
+	"encoding/hex"
+	"fmt"
 
 	clientTx "github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/simapp"
@@ -34,8 +29,8 @@ type NodeClient struct {
 	Address    string
 	ChainID    string
 	GrpcConn   *grpc.ClientConn
-	RPCUrl     string
-	Denom      string
+	//RPCUrl     string
+	Denom string
 }
 
 type GasPriceRsp struct {
@@ -44,9 +39,7 @@ type GasPriceRsp struct {
 	Result  string `json:"result"`
 }
 
-func NewNodeClient(privateKeyHex string, chainID string, address string, grpcConn *grpc.ClientConn,
-	rpcURL string, denom string,
-) *NodeClient {
+func NewNodeClient(privateKeyHex string, chainID string, address string, grpcConn *grpc.ClientConn, denim string) *NodeClient {
 	privatekeyBytes, err := hex.DecodeString(privateKeyHex)
 	if nil != err {
 		panic(err)
@@ -58,8 +51,8 @@ func NewNodeClient(privateKeyHex string, chainID string, address string, grpcCon
 		Address:  address,
 		ChainID:  chainID,
 		GrpcConn: grpcConn,
-		RPCUrl:   rpcURL,
-		Denom:    denom,
+		//RPCUrl:   rpcURL,
+		Denom: denim,
 	}
 }
 
@@ -168,21 +161,21 @@ func (n NodeClient) BitcoinTx(proposalID uint64, from string, bitcoinTxHash stri
 	return resMsgRes.Id, err
 }
 
-func (n NodeClient) GetEthGasPrice() (uint64, error) {
-	gasPriceByte, err := rpc.HTTPPostJSON("", n.RPCUrl, `{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}`)
-	if err != nil {
-		return 0, fmt.Errorf("[GetEthGasPrice] err: %s", err)
-	}
-	var g GasPriceRsp
-	if err := json.Unmarshal(gasPriceByte, &g); err != nil {
-		return 0, fmt.Errorf("[GetEthGasPrice.json.Unmarshal] err: %s", err)
-	}
-	parseUint, err := strconv.ParseUint(g.Result, 0, 64)
-	if err != nil {
-		return 0, fmt.Errorf("[GetEthGasPrice.strconv.ParseUint] err: %s", err)
-	}
-	return parseUint, nil
-}
+//func (n NodeClient) GetEthGasPrice() (uint64, error) {
+//	gasPriceByte, err := rpc.HTTPPostJSON("", n.RPCUrl, `{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":73}`)
+//	if err != nil {
+//		return 0, fmt.Errorf("[GetEthGasPrice] err: %s", err)
+//	}
+//	var g GasPriceRsp
+//	if err := json.Unmarshal(gasPriceByte, &g); err != nil {
+//		return 0, fmt.Errorf("[GetEthGasPrice.json.Unmarshal] err: %s", err)
+//	}
+//	parseUint, err := strconv.ParseUint(g.Result, 0, 64)
+//	if err != nil {
+//		return 0, fmt.Errorf("[GetEthGasPrice.strconv.ParseUint] err: %s", err)
+//	}
+//	return parseUint, nil
+//}
 
 func (n NodeClient) GetGasPrice() (uint64, error) {
 	queryClient := feeTypes.NewQueryClient(n.GrpcConn)

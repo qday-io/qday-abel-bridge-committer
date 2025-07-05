@@ -64,7 +64,7 @@ func NewServiceContext(cfg *types.Config, b2nodeConfig *types.B2NODEConfig, abec
 		log.Panicf("[svc] init b2node grpc panic: %s\n", err)
 	}
 
-	nodeClient := b2node.NewNodeClient(privateKeHex, chainID, address, grpcConn, b2nodeConfig.RPCUrl, b2nodeConfig.CoinDenom)
+	nodeClient := b2node.NewNodeClient(privateKeHex, chainID, address, grpcConn, b2nodeConfig.CoinDenom)
 	abecClient := abec.NewClient(abecCfg.Endpoint, abecCfg.Username, abecCfg.Password, abecCfg.AuthToken, abecCfg.RpcEndpoint)
 
 	svc = &ServiceContext{
