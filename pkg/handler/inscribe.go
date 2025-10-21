@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/qday-io/qday-abel-bridge-committer/pkg/inscribe"
@@ -44,7 +46,9 @@ func Inscribe(ctx *svc.ServiceContext) {
 
 			time.Sleep(5 * time.Second)
 			log.Infof("[Handler.Inscribe] Inscribe to abec, memo: %v\n", proposal.Id)
-			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo, "10000")
+
+			s := (rand.Intn(20) + 1) * 1000
+			abecTxHash, err := ctx.AbecClient.UserTransferToSingleRecipient(ctx.AbecConfig, memo, fmt.Sprintf("%v", s))
 			if err != nil {
 				log.Errorf("[Handler.Inscribe] UserTransferToSingleRecipient err: %s\n", errors.WithStack(err).Error())
 				continue
