@@ -52,13 +52,15 @@ func (b *AbecClient) GetTxConfirmedStatus(txid, appID, userID, requestSignature 
 
 func (b *AbecClient) UserTransferToSingleRecipient(abeCfg *types.AbecConfig, memo []byte, amount string) (string, error) {
 	params := map[string]interface{}{
-		"appID":            abeCfg.APPID,
-		"requestSignature": abeCfg.RequestSignature,
-		"userID":           abeCfg.UserID,
-		"recipient":        abeCfg.Recipient,
-		"amount":           amount,
-		"privateKey":       abeCfg.PrivateKey,
-		"memo":             hex.EncodeToString(memo),
+		"appID":                        abeCfg.APPID,
+		"requestSignature":             abeCfg.RequestSignature,
+		"userID":                       abeCfg.UserID,
+		"recipient":                    abeCfg.Recipient,
+		"amount":                       amount,
+		"privateKey":                   abeCfg.PrivateKey,
+		"memo":                         hex.EncodeToString(memo),
+		"autoUTXOAggregationThreshold": 100,
+		"fee":                          "100000",
 	}
 
 	resp, err := b.getResponseFromChan("abelsn_userTransferToSingleRecipient", params)
